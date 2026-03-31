@@ -79,8 +79,8 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
                 "cancel" -> {
                     cancel(result)
                 }
-                "forceRelease" -> {
-                    forceRelease(result)
+                "release" -> {
+                    release(result)
                 }
                 else -> {
                     result.notImplemented()
@@ -184,7 +184,7 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
         result.success(true)
     }
 
-    private fun forceRelease(result: MethodChannel.Result) {
+    private fun release(result: MethodChannel.Result) {
         try {
             // Only attempt release if we actually have an initialized client
             if (mClient != null && initState) {
