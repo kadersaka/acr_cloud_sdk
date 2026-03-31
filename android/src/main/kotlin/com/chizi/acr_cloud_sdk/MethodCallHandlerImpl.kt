@@ -76,6 +76,9 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
                 "cancel" -> {
                     cancel(result)
                 }
+                "forceRelease" -> {
+                    forceRelease(result)
+                }
                 else -> {
                     result.notImplemented()
                 }
@@ -173,6 +176,19 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
     private fun cancel(result: MethodChannel.Result) {
         if (mProcessing && mClient != null) {
             mClient!!.cancel()
+        }
+        reset()
+        result.success(true)
+    }
+
+    private fun forceRelease(result: MethodChannel.Result) {
+        try {
+            if (mClient != null) {
+                mClient!!.cancel()
+                mClient!!.release() // Full teardown
+            }
+        } catch (e: Exception) {
+            // Ignore
         }
         reset()
         result.success(true)
