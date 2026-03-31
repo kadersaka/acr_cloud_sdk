@@ -163,4 +163,10 @@ class AcrCloudSdk {
     final bool data = await _channel.invokeMethod('cancel');
     return data;
   }
+
+  /// This function will release the recorder and resources immediately.
+  /// Used to resolve hardware conflicts.
+  Future<void> release() async {
+    await _channel.invokeMethod('forceRelease');
+  }
 }
