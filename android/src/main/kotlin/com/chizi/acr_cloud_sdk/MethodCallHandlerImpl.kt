@@ -32,7 +32,11 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
 
     private var mProcessing = false
     private var mAutoRecognizing = false
-    private var initState = false
+    
+    companion object {
+        private var mClient: ACRCloudClient? = null
+        private var initState = false
+    }
 
     private val mediaPlayer = MediaPlayer()
 
@@ -47,7 +51,6 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
     private val PRINT_MSG = 1001
 
     private var mConfig: ACRCloudConfig? = null
-    private var mClient: ACRCloudClient? = null
 
     fun setActivity(act: Activity?) {
         this.activity = act
@@ -164,7 +167,7 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
         }
         if (!mProcessing) {
             mProcessing = true
-            if (mClient == null || !mClient!!.startRecognize()) {
+        if (mClient == null || !mClient!!.startRecognize()) {
                 mProcessing = false
 
                 result.error(TAG, "start error!", "Could not start the service")
