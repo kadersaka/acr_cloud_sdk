@@ -183,13 +183,16 @@ internal class MethodCallHandlerImpl(context: Context, activity: Activity?, time
 
     private fun forceRelease(result: MethodChannel.Result) {
         try {
-            if (mClient != null) {
+            // Only attempt release if we actually have an initialized client
+            if (mClient != null && initState) {
                 mClient!!.cancel()
-                mClient!!.release() // Full teardown
+                mClient!!.release()
             }
         } catch (e: Exception) {
-            // Ignore
+            android.util.Log.e(TAG, "forceRelease error: " + e.message)
         }
+        initState = false
+        mClient = null
         reset()
         result.success(true)
     }
