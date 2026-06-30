@@ -1,6 +1,6 @@
 name: acr_cloud_sdk
 description: This is an unofficial ACR Cloud SDK to recognize sound and music influtter
-version: 2.0.2
+version: 2.0.3
 homepage: https://github.com/codelabbj/acr_cloud_sdk
 
 environment:
